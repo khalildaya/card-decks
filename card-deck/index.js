@@ -44,3 +44,28 @@ function buildDeck(cardSuits, faceCards, cardNumbers) {
 
 	return result;
 }
+
+/**
+ * Shuffles the deck
+*/
+CardDeck.prototype.shuffle = function() {
+
+	/**
+	 * Shuffles the deck by randomly picking a card from
+	 * original deck, adding it to a temp deck as long as the original
+	 * deck wis not empty. Once it is, swaps the temp deck with the original one
+	 */
+	const tempDeck = [];
+
+	while(this.deck.length > 0) {
+		// Pick a random card
+		const nextCardIndex = Math.floor(Math.random() * this.deck.length);
+		
+		// Remove the chosen card from the original deck and put it temp deck
+		const nextCard = this.deck.splice(nextCardIndex, 1);
+		tempDeck.push(nextCard);
+	}
+	
+	// swap temp deck with original deck
+	this.deck = tempDeck;
+}
