@@ -1,0 +1,19 @@
+{
+  "name": "card-decks",
+  "version": "1.0.0",
+  "description": "suffeling a \u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[Dh\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[Du\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[ffle and deal cards",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/khalildaya/card-decks.git"
+  },
+  "author": "Khalil Daya",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/khalildaya/card-decks/issues"
+  },
+  "homepage": "https://github.com/khalildaya/card-decks#readme"
+}
