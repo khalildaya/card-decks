@@ -61,4 +61,58 @@ describe("CardDeck", () => {
 		expect(beforeShuffle).not.toMatch(afterShuffle);
 		expect(cardsInDeckBeforeShuffle.length).toEqual(cardsInDeckAfterShuffle.length);
 	});
+
+	test("Successfully deal cards", () => {
+		const cardDeck = new CardDeck();
+		expect(cardDeck).toMatchObject(defaultCardDeck);
+		cardDeck.shuffle();
+		
+		// Deal 20 cards
+		const dealtCards = [];
+		for (let i = 0; i < 20; i++) {
+			dealtCards.push(cardDeck.dealCard());
+		}
+
+		// Expect not to find any of the dealt cards among the remaining cards in deck
+		const cardsInDeck = cardDeck.getCardsInDeck();
+		for (let i = 0; i < dealtCards.length; i++) {
+			expect(cardsInDeck.indexOf(dealtCards[i])).toEqual(-1);
+		}
+
+		// Expect to find all dealt cards
+		const dealtCardsInDeck = cardDeck.getDealtCards();
+		for (let i = 0; i < dealtCards.length; i++) {
+			expect(dealtCardsInDeck.indexOf(dealtCards[i])).not.toEqual(-1);
+		}
+
+		// Expect dealt cards number to match exactly the dealt cards stored in CardDeck object
+		expect(dealtCardsInDeck.length).toEqual(dealtCards.length);
+	});
+
+	test("Successfully deal some cards then shuffle", () => {
+		const cardDeck = new CardDeck();
+		expect(cardDeck).toMatchObject(defaultCardDeck);
+		cardDeck.shuffle();
+		for (let i = 0; i < 15; i++) {
+			cardDeck.dealCard();
+		}
+		let dealtCards = cardDeck.getDealtCards();
+		expect(dealtCards.length).toEqual(15);
+
+		// Expect dealt cards to go back to original deck
+		cardDeck.shuffle();
+		dealtCards = cardDeck.getDealtCards();
+		expect(dealtCards.length).toEqual(0);
+	});
+
+	test("Successfully deal all cards", () => {
+		const cardDeck = new CardDeck();
+		expect(cardDeck).toMatchObject(defaultCardDeck);
+		cardDeck.shuffle();
+		cardDeck.dealAllCards();
+		const card = cardDeck.dealCard();
+		
+		// Expect not to have any more cards to deal
+		expect(card).toBeUndefined();
+	});
 });
