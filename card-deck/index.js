@@ -12,13 +12,14 @@ function CardDeck(cardConfig) {
 	 * override default card suits, face cards and card numbers
 	 * with the ones provided in constructor config
 	 */
-	const finalConfig = Object.assign(defaultConfig, cardConfig);
+	let config = Object.assign({}, defaultConfig);
+	config = Object.assign(config, cardConfig);
 
 	// build an ordered deck
-	this.deck = buildDeck(finalConfig.cardSuits, finalConfig.faceCards, finalConfig.cardNumbers);
+	this._deck = buildDeck(config.cardSuits, config.faceCards, config.cardNumbers);
 
 	// Initialize dealt cards
-	this.dealtCards = [];
+	this._dealtCards = [];
 }
 
 
@@ -63,20 +64,20 @@ CardDeck.prototype.shuffle = function() {
 	const tempDeck = [];
 
 	// Return all dealt cards back to deck and re-initiailze dealt cards
-	this.deck = this.deck.concat(this.dealtCards);
-	this.dealtCards = [];
+	this._deck = this._deck.concat(this._dealtCards);
+	this._dealtCards = [];
 
-	while(this.deck.length > 0) {
+	while(this._deck.length > 0) {
 		// Pick a random card
-		const nextCardIndex = Math.floor(Math.random() * this.deck.length);
+		const nextCardIndex = Math.floor(Math.random() * this._deck.length);
 		
 		// Remove the chosen card from the original deck and put it temp deck
-		const nextCard = this.deck.splice(nextCardIndex, 1)[0];
+		const nextCard = this._deck.splice(nextCardIndex, 1)[0];
 		tempDeck.push(nextCard);
 	}
 	
 	// swap temp deck with original deck
-	this.deck = tempDeck;
+	this._deck = tempDeck;
 }
 
 /**
@@ -86,10 +87,10 @@ CardDeck.prototype.shuffle = function() {
 */
 CardDeck.prototype.dealCard = function() {
 	// Remove card from the deck
-	const card = this.deck.pop();
+	const card = this._deck.pop();
 
 	// Add card to dealt cards
-	this.dealtCards.push(card);
+	this._dealtCards.push(card);
 
 	return card;
 }
@@ -105,28 +106,38 @@ CardDeck.prototype.dealAllCards = function() {
 	/**
 	 * Loop through all cards in the deck and
 	 * pop them out of the deck until deck is empty.
-	 * Teh reason to return the array "result" instead of this.dealtCards
+	 * Teh reason to return the array "result" instead of this._dealtCards
 	 * is to avoid returning a reference to an internal property of the CardDeck object
 	*/
-	while(this.deck.length > 0) {
-		const card = this.deck.pop(); 
+	while(this._deck.length > 0) {
+		const card = this._deck.pop(); 
 		result.push(card);
-		this.dealtCards.push(card);
+		this._dealtCards.push(card);
 	}
 
 	return result;
 }
 
 /**
- * Exposes the cards in deck and the dealt cards
+ * Returns cards in deck
+ * @return {array} array of strings representing cards in deck 
 */
-CardDeck.prototype.print = function() {
-	console.log("******Cards in Deck******");
-	for (let i = 0; i < this.deck.length; i++) {
-		console.log(this.deck[i]);
-	}
-	console.log("******Dealt Cards******");
-	for (let i = 0; i < this.dealtCards.length; i++) {
-		console.log(this.dealtCards[i]);
-	}
+CardDeck.prototype.getCardsInDeck = function() {
+	/**
+	 * Returns cards in deck but not a reference to
+	 * the internal property this._deck
+	*/
+	return [].concat(this._deck);
+}
+
+/**
+ * Returns dealt cards
+ * @return {array} array of strings representing dealt cards
+*/
+CardDeck.prototype.getDealtCards = function() {
+	/**
+	 * Returns dealt cards in deck but not a reference to
+	 * the internal property this._dealtCards
+	*/
+	return [].concat(this._dealtCards);
 }
