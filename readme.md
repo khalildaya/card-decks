@@ -1,5 +1,5 @@
 # CardDeck Class
-A class to build, shuffle and deal a card deck. Allows to to create your own card deck, see Example 2 in [index.js](./index.js)
+A class to build, shuffle and deal a card deck. Allows you to create your own card deck, see Example 2 in [index.js](./index.js)
 
 ## To run
 1. [download node](https://nodejs.org/en/download/)
