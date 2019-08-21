@@ -5,8 +5,8 @@ c.shuffle();
 for (let i = 0; i < 20; i++) {
 	c.dealCard();
 }
-console.log(c);
+c.print();
 c.shuffle();
-console.log(c);
+c.print();
 c.dealAllCards();
-console.log(c);
+c.print();

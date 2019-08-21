@@ -116,3 +116,17 @@ CardDeck.prototype.dealAllCards = function() {
 
 	return result;
 }
+
+/**
+ * Exposes the cards in deck and the dealt cards
+*/
+CardDeck.prototype.print = function() {
+	console.log("******Cards in Deck******");
+	for (let i = 0; i < this.deck.length; i++) {
+		console.log(this.deck[i]);
+	}
+	console.log("******Dealt Cards******");
+	for (let i = 0; i < this.dealtCards.length; i++) {
+		console.log(this.dealtCards[i]);
+	}
+}
