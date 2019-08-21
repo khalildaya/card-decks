@@ -20,6 +20,9 @@ function CardDeck(cardConfig) {
 
 	// Initialize dealt cards
 	this._dealtCards = [];
+
+	// Set shuffled flag to indicate that deck is still ordered
+	this._isShuffled = false;
 }
 
 
@@ -78,6 +81,9 @@ CardDeck.prototype.shuffle = function() {
 	
 	// swap temp deck with original deck
 	this._deck = tempDeck;
+
+	// Set shuffle flag
+	this._isShuffled = true;
 }
 
 /**
@@ -86,6 +92,11 @@ CardDeck.prototype.shuffle = function() {
  * @return {string} the dealt card
 */
 CardDeck.prototype.dealCard = function() {
+	// Shuffle if deck still ordered
+	if (!this._isShuffled) {
+		this.shuffle();
+	}
+
 	// Remove card from the deck
 	const card = this._deck.pop();
 
@@ -100,6 +111,11 @@ CardDeck.prototype.dealCard = function() {
  * @return {array} array of string representing all dealt cards
 */
 CardDeck.prototype.dealAllCards = function() {
+	// Shuffle if deck still ordered
+	if (!this._isShuffled) {
+		this.shuffle();
+	}
+	
 	// Array of dealt cards to return
 	const result = [];
 
@@ -140,4 +156,12 @@ CardDeck.prototype.getDealtCards = function() {
 	 * the internal property this._dealtCards
 	*/
 	return [].concat(this._dealtCards);
+}
+
+/**
+ * Returns if the deck has been shuffled 
+ * @return {boolean} true if deck has been shuffled, false otherwise
+*/
+CardDeck.prototype.isShuffled = function() {
+	return this._isShuffled;
 }

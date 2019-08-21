@@ -115,4 +115,22 @@ describe("CardDeck", () => {
 		// Expect not to have any more cards to deal
 		expect(card).toBeUndefined();
 	});
+
+	test("Successfully shuffle before dealing a card even though shuffle method was not explicitly called on CardDeck object", () => {
+		const cardDeck = new CardDeck();
+		expect(cardDeck).toMatchObject(defaultCardDeck);
+		cardDeck.dealCard();
+		
+		// Expect to deck to be shuffle
+		expect(cardDeck.isShuffled()).toBeTruthy();
+	});
+
+	test("Successfully shuffle before dealing all cards even though shuffle method was not explicitly called on CardDeck object", () => {
+		const cardDeck = new CardDeck();
+		expect(cardDeck).toMatchObject(defaultCardDeck);
+		cardDeck.dealAllCards();
+		
+		// Expect to deck to be shuffle
+		expect(cardDeck.isShuffled()).toBeTruthy();
+	});
 });
